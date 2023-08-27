@@ -6,7 +6,7 @@
 
 > Preprocessor to compile ES6 on the fly with [babel](https://github.com/6to5/babel).
 
-This fork of the original adds caching.  The cache is written to a fixed path: `.cache/babel_caches.json`
+This fork of the original adds caching.  See `cachePath` below.
 
 **babel and karma-babel-preprocessor only convert ES6 modules to CommonJS/AMD/SystemJS/UMD. If you choose CommonJS, you still need to resolve and concatenate CommonJS modules on your own. We recommend [karma-browserify](https://github.com/Nikku/karma-browserify) + [babelify](https://github.com/babel/babelify) or [webpack](https://github.com/webpack/karma-webpack) + [babel-loader](https://github.com/babel/babel-loader) in such cases.**
 
@@ -54,6 +54,31 @@ module.exports = function (config) {
       sourceFileName: function (file) {
         return file.originalPath;
       }
+    }
+  });
+};
+```
+
+### Caching
+
+Adding the field `cachePath` will enable caching.  Cached output from babel
+will be stored into that file, along with md5 hashes of the original contents
+of each file.  If an original file hasn't changed, the cached babel-processed
+results will be reused.
+
+```js
+module.exports = function (config) {
+  config.set({
+    preprocessors: {
+      'src/**/*.js': ['babel'],
+      'test/**/*.js': ['babel']
+    },
+    babelPreprocessor: {
+      cachePath: '.babel-cache',
+      options: {
+        presets: ['@babel/preset-env'],
+        sourceMap: 'inline'
+      },
     }
   });
 };
