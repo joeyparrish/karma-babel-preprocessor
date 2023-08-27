@@ -6,6 +6,8 @@
 
 > Preprocessor to compile ES6 on the fly with [babel](https://github.com/6to5/babel).
 
+This fork of the original adds caching.  The cache is written to a fixed path: `.cache/babel_caches.json`
+
 **babel and karma-babel-preprocessor only convert ES6 modules to CommonJS/AMD/SystemJS/UMD. If you choose CommonJS, you still need to resolve and concatenate CommonJS modules on your own. We recommend [karma-browserify](https://github.com/Nikku/karma-browserify) + [babelify](https://github.com/babel/babelify) or [webpack](https://github.com/webpack/karma-webpack) + [babel-loader](https://github.com/babel/babel-loader) in such cases.**
 
 ## Installation
